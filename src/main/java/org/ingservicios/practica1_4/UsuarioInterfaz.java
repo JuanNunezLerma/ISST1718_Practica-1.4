@@ -3,6 +3,7 @@ package org.ingservicios.practica1_4;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 public interface UsuarioInterfaz{
 	
-
+	public void insertaUsuario(UsuarioDTO usuario);
+	public List<UsuarioDTO> leeUsuarios();
+	public UsuarioDTO buscaUsuario(int nombre);
 	
 }

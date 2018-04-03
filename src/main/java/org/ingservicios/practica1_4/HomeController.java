@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-	private static final String nombreUsuario = "jnl00005";
-	private static final String claveUsuario = "practica1-4";
+	private static final String nombreUsuario = "abc";
+	private static final String claveUsuario = "def";
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -53,6 +53,18 @@ public class HomeController {
 		{
 			return "registro";
 		}
+	}
+	
+	@RequestMapping(value = "/Servlet2", method = RequestMethod.POST)
+	public String Servlet2(HttpServletRequest req, Model mod) {
+		//Seguir por aqui, llamar al metodo de leeUsuarios del UsuarioDAOJdbc. y 
+		//luego hay que poner el model pasandole la LUsuarios del usuarios.jsp para 
+		//que llame a esta vista y muestre la tabla.
+		 
+		
+	
+			return "usuarios";
+		
 	}
 
 	
