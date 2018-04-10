@@ -3,6 +3,7 @@ package org.ingservicios.practica1_4;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,4 +30,29 @@ public class UsuarioDAOJdbc implements UsuarioInterfaz {
 		this.dataSource = dataSource;
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
+	
+	//Métodos
+	public void insertaUsuario(UsuarioDTO usuario){
+		String sql = "insert into Usuario values(?,?,?)";
+		Object[ ] parametros = {usuario.getNombre(),usuario.getApellido(),usuario.getEmail()};
+		this.jdbcTemplate.update(sql,parametros);
+	}
+	
+	public List<UsuarioDTO> leeUsuarios(){
+		String sql = "select * from Usuario";
+		UsuarioMapper mapper = new UsuarioMapper();
+		List<UsuarioDTO> usuarios = this.jdbcTemplate.query(sql, mapper);
+		return usuarios;
+		}
+	
+	public UsuarioDTO buscaUsuario(int nombre){ //Devuelve el usuario buscado o null si no existe
+		String sql = "select * from Usuario where nombre = ?";
+		Object[ ] parametros = {nombre}; //Array de objetos
+		UsuarioMapper mapper = new UsuarioMapper();
+		List<UsuarioDTO> usuarios = this.jdbcTemplate.query(sql, parametros, mapper);
+		if (usuarios.isEmpty()){
+			return null;
+		  }else 
+			return usuarios.get(0);
+		  }
 }
