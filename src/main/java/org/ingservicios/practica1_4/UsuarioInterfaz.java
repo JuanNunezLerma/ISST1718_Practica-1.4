@@ -2,6 +2,7 @@ package org.ingservicios.practica1_4;
 
 import java.io.Serializable;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;

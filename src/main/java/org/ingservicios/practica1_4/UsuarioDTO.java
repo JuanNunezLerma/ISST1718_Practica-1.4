@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class UsuarioDTO implements Serializable{
 	
 	private String nombre;
-	private String apellido;
+	private String apellidos;
 	private String email;
 	
 	
@@ -31,11 +31,11 @@ public class UsuarioDTO implements Serializable{
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public String getApellido() {
-		return apellido;
+	public String getApellidos() {
+		return apellidos;
 	}
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
+	public void setApellidos(String apellidos) {
+		this.apellidos = apellidos;
 	}
 	public String getEmail() {
 		return email;

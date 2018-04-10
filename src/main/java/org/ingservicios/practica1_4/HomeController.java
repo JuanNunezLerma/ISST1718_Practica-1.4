@@ -1,7 +1,9 @@
 package org.ingservicios.practica1_4;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 
@@ -9,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,25 +51,38 @@ public class HomeController {
 		String clave = req.getParameter("clave");
 		
 		if (usuario.equals(nombreUsuario) && clave.equals(claveUsuario)) {
+			
+		    List<UsuarioDTO> LUsuarios = new ArrayList<UsuarioDTO>();
+			LUsuarios = dao.leeUsuarios();
+			mod.addAttribute("LUsuarios" , LUsuarios);//Pasamos la lista usuarios al objeto request para que pueda interactuar con el jsp.
+
 			return "usuarios";
 		}
 		else
 		{
 			return "registro";
+			//En registro habría que llamar al "Servlet3" que va a ser la parte de introducir al usuario en la BBDD.
 		}
 	}
 	
-	@RequestMapping(value = "/Servlet2", method = RequestMethod.POST)
+	@Autowired
+	private UsuarioInterfaz dao;
+	
+	/*@RequestMapping(value = "/Servlet2", method = RequestMethod.POST)
 	public String Servlet2(HttpServletRequest req, Model mod) {
 		//Seguir por aqui, llamar al metodo de leeUsuarios del UsuarioDAOJdbc. y 
 		//luego hay que poner el model pasandole la LUsuarios del usuarios.jsp para 
 		//que llame a esta vista y muestre la tabla.
-		 
 		
+	    List<UsuarioDTO> LUsuarios = new ArrayList<UsuarioDTO>();
+		LUsuarios = dao.leeUsuarios();
+		mod.addAttribute("LUsuarios" , LUsuarios);//Pasamos la lista usuarios al objeto request para que pueda interactuar con el jsp.
+
+		return "usuarios";
+		
+	}*/
 	
-			return "usuarios";
-		
-	}
+	
 
 	
 }
