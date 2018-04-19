@@ -9,11 +9,11 @@
 <body>
 Registro confirmado. Pulse OK.
 
-<form action="ConfirmaRegistro" method="POST">
+<form action="ConfirmacionRegistro" method="POST">
 	<br></br>
-	Nombre:<br><input type="text" name="nombre" id="nombre" value="${nombre}"></br>
-	Apellidos:<br><input type="text" name="apellidos" id="apellidos" value="${apellidos}"></br>
-	Email:<br><input type="email" name="email" id="email" value="${email}"></br>
+	<br><input type="hidden" name="nombre" id="nombre" value="${UsuarioNew.nombre}"></br>
+	<br><input type="hidden" name="apellidos" id="apellidos" value="${UsuarioNew.apellidos}"></br>
+	<br><input type="hidden" name="email" id="email" value="${UsuarioNew.email}"></br>
 	<input type="submit" value="OK">
 </form>
 </body>

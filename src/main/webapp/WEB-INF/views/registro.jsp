@@ -6,7 +6,7 @@
 </head>
 <body>
 	<p>Por favor, introduzca sus datos para completar su registro</p>
-	<form action="ConfirmaRegistro" method="post">
+	<form action="Registrarse" method="post">
 	Nombre:<br><input type="text" name="nombre" id="nombre"></br>
 	Apellidos:<br><input type="text" name="apellidos" id="apellidos"></br>
 	Email:<br><input type="email" name="email" id="email"></br>

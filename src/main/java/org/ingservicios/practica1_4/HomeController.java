@@ -80,13 +80,14 @@ public class HomeController {
 	    UsuarioNew.setEmail(req.getParameter("email"));
 	    dao.insertaUsuario(UsuarioNew);
 	    
-		mod.addAttribute("UsuarioNew" , UsuarioNew);
+		
+	    mod.addAttribute("UsuarioNew" , UsuarioNew);
 	    
 	    return "ConfirmaRegistro";
 		
 	}
 	
-	@RequestMapping(value = "/ConfirmaRegistro", method = RequestMethod.POST)
+	@RequestMapping(value = "/ConfirmacionRegistro", method = RequestMethod.POST)
 	public String ConfirmaRegistro(HttpServletRequest req, Model mod) {
 		// Se leen los parámetros
 	    String nombre = req.getParameter("nombre");
@@ -97,7 +98,7 @@ public class HomeController {
 
 	 	System.out.println(req.getSession(false)==null);
 	 	if (req.getSession(false)==null){
-	 		if(nombre==null) {
+	 		if(req.getParameter("nombre")==null) {
 	 			return "accesoNulo";
 	 		}else {
 	 			System.out.println("Sesion no activa");
@@ -109,7 +110,7 @@ public class HomeController {
 	 			req.setAttribute("email",email);
 	 			HttpSession sesion=req.getSession(true);
 	 			System.out.println("Sesion activada");
-	 			sesion.setMaxInactiveInterval(60);
+	 			sesion.setMaxInactiveInterval(10);
 	 			sesion.setAttribute("nombre",nombre);
 	 			sesion.setAttribute("apellidos",apellidos);
 	 			sesion.setAttribute("email",email);
