@@ -25,8 +25,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-	private static final String nombreUsuario = "abc";
-	private static final String claveUsuario = "def";
+	private static final String nombreUsuario = "admin";
+	private static final String claveUsuario = "admin";
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -71,24 +71,42 @@ public class HomeController {
 	@Autowired
 	private UsuarioInterfaz dao;
 	
-	@RequestMapping(value = "/Registrarse", method = RequestMethod.POST)
+	@RequestMapping(value = "/Registrarse", method = {RequestMethod.POST,RequestMethod.POST,RequestMethod.GET})
 	public String Registrarse(HttpServletRequest req, Model mod) {
 		
 	    UsuarioDTO UsuarioNew = new UsuarioDTO();
 	    UsuarioNew.setNombre(req.getParameter("nombre"));
 	    UsuarioNew.setApellidos(req.getParameter("apellidos"));
 	    UsuarioNew.setEmail(req.getParameter("email"));
-	    dao.insertaUsuario(UsuarioNew);
 	    
-		
-	    mod.addAttribute("UsuarioNew" , UsuarioNew);
 	    
-	    return "ConfirmaRegistro";
+	    
+	    if(dao.buscaUsuario(UsuarioNew.getEmail())!=null){
+	    	String nombre=UsuarioNew.getNombre();
+			String apellidos=UsuarioNew.getApellidos();
+			String email=UsuarioNew.getEmail();
+			mod.addAttribute("nombre",nombre);
+			mod.addAttribute("apellidos",apellidos);
+			mod.addAttribute("email",email);
+
+	    	return "informacionAcceso";
+	    }
+	    else {	    	
+	    	String nombre=UsuarioNew.getNombre();
+			String apellidos=UsuarioNew.getApellidos();
+			String email=UsuarioNew.getEmail();
+			mod.addAttribute("nombre",nombre);
+			mod.addAttribute("apellidos",apellidos);
+			mod.addAttribute("email",email);
+	    	dao.insertaUsuario(UsuarioNew);
+	    	
+	    	return "ConfirmaRegistro";
+	    }      
 		
 	}
 	
-	@RequestMapping(value = "/ConfirmacionRegistro", method = RequestMethod.POST)
-	public String ConfirmaRegistro(HttpServletRequest req, Model mod) {
+	@RequestMapping(value = "/ConfirmacionRegistro", method = {RequestMethod.POST,RequestMethod.GET})
+	public String ConfirmacionRegistro(HttpServletRequest req, Model mod) {
 		// Se leen los parámetros
 	    String nombre = req.getParameter("nombre");
 	 	String apellidos = req.getParameter("apellidos");
@@ -98,13 +116,13 @@ public class HomeController {
 
 	 	System.out.println(req.getSession(false)==null);
 	 	if (req.getSession(false)==null){
-	 		if(req.getParameter("nombre")==null) {
+	 		if(nombre==null) {
 	 			return "accesoNulo";
 	 		}else {
 	 			System.out.println("Sesion no activa");
-	 			/*nombre=req.getParameter("nombre");
+	 			nombre=req.getParameter("nombre");
 	 			apellidos=req.getParameter("apellidos");
-	 		    email=req.getParameter("email");*/
+	 		    email=req.getParameter("email");
 	 			req.setAttribute("nombre", nombre);
 	 			req.setAttribute("apellidos",apellidos);
 	 			req.setAttribute("email",email);
@@ -123,9 +141,9 @@ public class HomeController {
 				
 			HttpSession sesion=req.getSession();
 			System.out.println("Leemos datos de sesion");
-			/*nombre=(String)sesion.getAttribute("nombre");
+			nombre=(String)sesion.getAttribute("nombre");
  			apellidos=(String)sesion.getAttribute("apellidos");
- 			email=(String)sesion.getAttribute("email");*/
+ 			email=(String)sesion.getAttribute("email");
  			req.setAttribute("nombre", nombre);
  			req.setAttribute("apellidos",apellidos);
  			req.setAttribute("email",email);
@@ -136,18 +154,6 @@ public class HomeController {
 		} 
 		
 	}
-	
-	@RequestMapping(value = "/ConfirmaRegistro", method = RequestMethod.GET)
-		public String ConfirmaRegistroGET(HttpServletRequest req, Model mod) {
-			String nombre = req.getParameter("nombre");
-		 	String apellidos = req.getParameter("apellidos");
-		 	String email = req.getParameter("email");
-		
-		 	System.out.println(nombre + " " + apellidos + " "+ email);
-		 	
-			ConfirmaRegistro(req, mod);
-			return "informacionAcceso";
-		}
 	
 	
 }

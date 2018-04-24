@@ -24,6 +24,6 @@ public interface UsuarioInterfaz{
 	
 	public void insertaUsuario(UsuarioDTO usuario);
 	public List<UsuarioDTO> leeUsuarios();
-	public UsuarioDTO buscaUsuario(int nombre);
+	public UsuarioDTO buscaUsuario(String email);
 	
 }
